@@ -1,0 +1,95 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "prettier"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "no-var": "error",
+        "no-use-before-define": "error",
+        "prefer-const": "error",
+        "prefer-arrow-callback": "error",
+        "prefer-template": "warn",
+        "array-callback-return": [
+          "error",
+          {
+            "checkForEach": true
+          }
+        ],
+        "no-duplicate-imports": [
+          "error",
+          {
+            "includeExports": true
+          }
+        ],
+        "no-constructor-return": "error",
+        "no-self-compare": "error",
+        "no-unreachable-loop": "error",
+        "eqeqeq": "error",
+        "camelcase": "error",
+        "yoda": [
+          "error",
+          "never",
+          {
+            "exceptRange": true
+          }
+        ],
+        "no-else-return": [
+          "error",
+          {
+            "allowElseIf": false
+          }
+        ],
+        "no-lonely-if": "error",
+        "no-multi-assign": "error",
+        "no-multi-str": "error",
+        "require-await": "error",
+        "spaced-comment": "error"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended", "prettier"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js"],
+      "excludedFiles": ["src/*"],
+      "extends": ["eslint:recommended", "prettier"],
+      "env": {
+        "node": true,
+        "es6": true
+      },
+      "rules": {
+        "no-var": "error",
+        "prefer-const": "error",
+        "eqeqeq": "error"
+      }
+    }
+  ]
+}
