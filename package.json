@@ -6,6 +6,7 @@
     "dev": "concurrently -s -n dev: 'npm:dev:*'",
     "dev:ng": "ng serve --port 4200",
     "dev:db": "json-server --port 3000 --routes server/routes.json server/db.json --watch",
+    "preview": "json-server --port 3000 --routes server/routes.json --static dist/angular-starter server/db.json --watch",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
