@@ -1,0 +1,67 @@
+<main>
+  <h1>Active offers</h1>
+  <form #offersForm="ngForm" (submit)="this.handleSubmit()">
+    <ng-container *ngFor="let field of this.columns">
+      <mat-form-field *ngIf="!field.hide">
+        <input
+          matInput
+          [placeholder]="field.label"
+          [name]="field.key"
+          [required]="!!field.required"
+          [type]="field.type"
+          [max]="field.max ?? null"
+          [min]="field.min ?? null"
+          [maxlength]="field.maxlength ?? null"
+          [(ngModel)]="this.currentItem[field.key]" />
+      </mat-form-field>
+    </ng-container>
+    <button type="submit" mat-button color="primary">
+      {{ this.isEditMode ? "Update" : "Add" }}
+    </button>
+    <button
+      mat-button
+      color="warn"
+      *ngIf="this.isEditMode"
+      (click)="this.cancelEdit()">
+      Cancel
+    </button>
+  </form>
+  <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z2">
+    <ng-container
+      *ngFor="let column of this.columns"
+      [matColumnDef]="column.key">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ column.label }}
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item[column.key] }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let item">
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Edit"
+          (click)="this.editOffer(item)">
+          <mat-icon aria-hidden="true">edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="warn"
+          aria-label="Delete"
+          (click)="this.deleteOffer(item)">
+          <mat-icon aria-hidden="true">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="this.displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: this.displayedColumns"
+      [ngClass]="{ 'editable-row': this.currentItem.id === row.id }"></tr>
+  </table>
+  <mat-paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 15]"
+    showFirstLastButtons></mat-paginator>
+</main>
